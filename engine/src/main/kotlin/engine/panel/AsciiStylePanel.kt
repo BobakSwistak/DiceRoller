@@ -21,7 +21,7 @@ class AsciiStylePanel(
     private var defaultFg = Color.WHITE
     private var defaultBg = Color.BLACK
     
-    private val buffer =
+    private var buffer =
         Array(rows) { Array(cols) { Cell(' ', defaultFg, defaultBg) } }
     
     init {
@@ -57,7 +57,23 @@ class AsciiStylePanel(
         )
     }
 
-    
+
+    /** Resize terminal buffer to newCols x newRows, preserving existing content where possible */
+    fun resizePanel(newCols: Int, newRows: Int) {
+        if (newCols == cols && newRows == rows) return
+        val newBuf = Array(newRows) { Array(newCols) { Cell(' ', defaultFg, defaultBg) } }
+        for (r in 0 until minOf(rows, newRows)) {
+            for (c in 0 until minOf(cols, newCols)) {
+                newBuf[r][c] = buffer[r][c]
+            }
+        }
+        cols = newCols
+        rows = newRows
+        buffer = newBuf
+        revalidate()
+        repaint()
+    }
+
     /* ---------------- WRITING ---------------- */
     
     fun writeChar(

@@ -12,6 +12,9 @@ class Terminal(
     title: String = "Nameless Window",
     fontScale: Double = 1.0
 ) {
+    var width = width
+    var height = height
+
     private val FSEX300 = "/fonts/FSEX300.ttf"
     private val IBMEGA8x8 = "/fonts/Ac437_IBM_EGA_8x8.ttf"
     
@@ -33,7 +36,15 @@ class Terminal(
         frame.isResizable = false
         frame.pack()
     }
-    
+
+    /** Set terminal size in columns x rows (not font scale) */
+    fun setSize(w: Int, h: Int) {
+        width = w
+        height = h
+        panel.resizePanel(width, height)
+        updateWindow()
+    }
+
     fun setBgColor(color: Color) {
         panel.setBgColor(color)
     }
@@ -61,14 +72,9 @@ class Terminal(
         panel.paintImmediately(0, 0, panel.width, panel.height)
     }
     
-    fun getHeight(): Int {
-        return panel.rows
-    }
-    
-    fun getWidth(): Int {
-        return panel.cols
-    }
-    
+    fun getRows(): Int { return panel.rows }
+    fun getCols(): Int { return panel.cols }
+
     fun addKeyHandler(handler: (KeyEvent) -> Unit) {
         panel.isFocusable = true
         panel.requestFocusInWindow()
