@@ -1,9 +1,10 @@
 package frame
 
-import appTerminal.terminal
+import render.Renderer
 
 object FrameCoordinator {
     fun refreshFrame() {
-        terminal.write("A", 0, 0)
+        Updater.update()
+        Renderer.render()
     }
 }
