@@ -2,24 +2,23 @@ package render
 
 import appTerminal.*
 import art.dice
-import data.data
-import java.util.Random
+import data.DiceManager
 
 object Renderer {
     fun render() {
-//        if (data.shuffleDice) {
-        data.shuffleDice = false
+//        if (DiceManager.shuffleDice) {
+        DiceManager.shuffleDice = false
         terminal.clear()
         var counter = 0
-        for (i in 0 until data.rows) {
-            for (j in 0 until data.cols) {
+        for (i in 0 until DiceManager.rows) {
+            for (j in 0 until DiceManager.cols) {
                 ImageRenderer.renderOffsetImage(
-                    dice.getDice(Random().nextInt(1, 6)),
-                    offsetX = i * dice.diceWidth,
-                    offsetY = j * dice.diceHeight
+                    dice.getDice(DiceManager.dice[counter].number),
+                    offsetX = i * dice.diceWidth + 1,
+                    offsetY = j * dice.diceHeight + 1
                 )
                 counter += 1
-                if (counter == data.diceCount) break
+                if (counter == DiceManager.diceCount) break
             }
         }
         terminal.refresh()
