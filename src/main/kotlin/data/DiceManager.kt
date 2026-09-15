@@ -14,11 +14,14 @@ object DiceManager {
             dice.add(Die())
         }
         while (dice.size > diceCount) {
-            dice.removeAt(0)
+            dice.removeAt(diceCount)
         }
+        if (shuffleDice) {
+            shuffleDice = false
 
-        for (die in dice) {
-            die.shuffle()
+            for (die in dice) {
+                die.shuffle()
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "1.9.24"
-    // Apply the Kotlin serialization plugin so @Serializable classes generate serializers
     kotlin("plugin.serialization") version "1.9.24"
     application
 }
@@ -22,8 +21,9 @@ kotlin {
     jvmToolchain(21) // modern default
 }
 
+
+
 application {
-    // Your entry point is `fun main()` in `src/main.kt` -> generated class `MainKt`
     mainClass.set("MainKt")
 }
 
@@ -36,6 +36,12 @@ sourceSets {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
 }
 
 // Prevent transitive dependencies from pulling an incompatible Kotlin stdlib (e.g. 2.x)
