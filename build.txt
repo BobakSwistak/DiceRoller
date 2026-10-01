@@ -1,0 +1,5 @@
+./gradlew clean installDist
+cp -r build/install/DiceRoller/bin DiceRoller.AppDir/usr/lib/DiceRoller/
+cp -r build/install/DiceRoller/lib DiceRoller.AppDir/usr/lib/DiceRoller/
+chmod +x DiceRoller.AppDir/AppRun
+ARCH=x86_64 appimagetool DiceRoller.AppDir

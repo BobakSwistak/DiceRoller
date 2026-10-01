@@ -8,6 +8,6 @@ class Die() {
         shuffle()
     }
     fun shuffle() {
-        number = Random.nextInt(1, 6)
+        number = Random.nextInt(0, 6)
     }
 }
